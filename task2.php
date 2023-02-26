@@ -13,7 +13,7 @@
     for($i = 1; $i <= 5; $i++) { // создаём 5 строк
 
         for($j = 1; $j <= 7; $j++){ // создаём 7 столбцов
-            $numbers[$i][$j] = rand(1,1000);
+            $numbers[$i][$j] = rand(1,1000); // каждую ячейку заполняем числами от 1 до 1000
         }
 
     }
@@ -23,16 +23,20 @@
 
     echo '<pre>', print_r($numbers, true), '</pre>';
 
-    for ($row = 1; $row <= 5; $row++) { //
+    // Высисляем суммы по строкам и по столбцам
 
-        for ($col = 1; $col <= 7; $col++) {
+    for ($row = 1; $row <= 5; $row++) { // Перебираем строки
 
-            $summOfRows[$row] += $numbers[$row][$col];
+        for ($col = 1; $col <= 7; $col++) { // В каждой строке перебираем столбцы
 
-            $summOfCols[$col] += $numbers[$row][$col];
+            $summOfRows[$row] += $numbers[$row][$col]; // Для каждой строки складываем все значения
+
+            $summOfCols[$col] += $numbers[$row][$col]; // Для каждого столбца с соотвествующим $col складываем значения и записываем в отдельный индекс
         }
 
     }
+
+    // Выводим результаты
     echo "Суммы всех строк";
     echo '<pre>', print_r($summOfRows, true), '</pre>';
     echo "Суммы всех столбцов";
