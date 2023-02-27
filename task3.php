@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+ <head>
+  <meta charset="UTF-8">
+</head>
+
 <body>
 <?php
     // задание 3
@@ -21,6 +25,8 @@
         2) Если город совпадает с существующим - то меняем код города телефона,
             Если нет - оставляем 8-800 по умолчанию
         3) Добавляем код города на в телефон на странице
+
+        Решение развернул решение на сервере вот тут http://tilda.guarchibaoline.pro/
     */
 
     /*
@@ -49,70 +55,33 @@
 
     $res = json_decode($res, true);
 
-    /*
-
-        Дял примера: Возвращается вот такой массив
-
-        Array
-
-    (
-
-        [status] => success
-
-        [country] => Россия
-
-        [countryCode] => RU
-
-        [region] => MOW
-
-        [regionName] => Москва
-
-        [city] => Москва // Вот ради этого параметра я выбрал библиотеку
-
-        [zip] => 129075
-
-        [lat] => 55,7483
-
-        [lon] => 37,6171
-
-        [timezone] => Europe/Moscow
-
-        [isp] => NCNET
-
-        [org] =>
-
-        [as] => AS42610 PJSC Rostelecom
-
-        [query] => 37.110.21.212
-
-    )
-
-    */
-
-    // Но в данном примере, для демонстрации, буду использовать вот простой массив $res_sample
-    // (Поскольку данная библиотека не работает для локально и саму программу нужно на сервере разворачивать)
-
-    $res_sample = Array(
-
-        "city" => "Москва"
-
-    );
-
     // Вытаскиваем название города
 
-    foreach ($res_sample as $key => $value) {
+    foreach ($res as $key => $value) {
 
-        if ("{$value}" === "Москва"){ // Уточняю для каких городов ещё нужно
+        if ($key == "city") {
 
-            $cityCode = "495";
+            if ($value == "Москва") {
 
-        } else {
+                $cityCode = "495";
 
-            $cityCode = $defaultCode;
+            } elseif($value == "Алматы") {
 
+                $cityCode = "727";
+
+            } elseif($value == "Санкт-Петербург") {
+
+                $cityCode = "812";
+
+            } else {
+
+                $cityCode = $defaultCode;
+
+            }
         }
-
     }
+
+
     ?>
  <!-- Добавлем код города в телефон -->
 <header>
